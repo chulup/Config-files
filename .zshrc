@@ -33,18 +33,22 @@ setopt histignorealldups sharehistory
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-autoload zkbd
-#source ~/.zkbd/xterm-256color-:0.0
-[[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
-[[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
-[[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
-[[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
-[[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
-[[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
-[[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
-[[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
-[[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
-[[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
-[[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
-bindkey ';5D' emacs-backward-word
-bindkey ';5C' emacs-forward-word
+if [[ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]; then
+    autoload zkbd
+    source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+    [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
+    [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
+    [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
+    [[ -n ${key[PageUp]} ]] && bindkey "${key[PageUp]}" up-line-or-history
+    [[ -n ${key[Delete]} ]] && bindkey "${key[Delete]}" delete-char
+    [[ -n ${key[End]} ]] && bindkey "${key[End]}" end-of-line
+    [[ -n ${key[PageDown]} ]] && bindkey "${key[PageDown]}" down-line-or-history
+    [[ -n ${key[Up]} ]] && bindkey "${key[Up]}" up-line-or-search
+    [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
+    [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
+    [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+    [[ -n ${key[C_Left]} ]] && bindkey "${key[C_Left]}" emacs-backward-word
+    [[ -n ${key[C_Right]} ]] && bindkey "${key[C_Right]}" emacs-forward-word
+else
+    echo "No terminal keymap present. Run zkbd to create one and add C_Left and C_Right to it manually."
+fi
