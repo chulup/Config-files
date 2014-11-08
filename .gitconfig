@@ -1,3 +1,5 @@
 [user]
 	email = chulupey@gmail.com
 	name = Mikhail Shulbaev
+[push]
+	default = simple
