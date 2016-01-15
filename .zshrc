@@ -33,9 +33,11 @@ setopt histignorealldups sharehistory
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
-if [[ -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]; then
+ZKBD_CONFIG=~/.zkbd/$TERM-${${DISPLAY:+gui}:-console}
+
+if [[ -f $ZKBD_CONFIG ]]; then
     autoload zkbd
-    source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+    source $ZKBD_CONFIG
     [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
     [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
     [[ -n ${key[Home]} ]] && bindkey "${key[Home]}" beginning-of-line
