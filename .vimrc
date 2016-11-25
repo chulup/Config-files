@@ -9,11 +9,11 @@ set scrolloff=5
 " add byte offset to the statusline
 set rulerformat=%-14.(%o,%l,%c%V%)\ %P
 
-inoremap kjh <ESC>:tabprev<CR>
-inoremap kjl <ESC>:tabnext<CR>
-nnoremap kjh :tabprev<CR>
-nnoremap kjl :tabnext<CR>
+inoremap fjh <ESC>:tabprev<CR>
+inoremap fjl <ESC>:tabnext<CR>
+nnoremap fjh :tabprev<CR>
+nnoremap fjl :tabnext<CR>
 " kj to Normal mode 
-inoremap kj <ESC>
+inoremap fj <ESC>
 
 autocmd syntax * SpaceHi
